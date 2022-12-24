@@ -50,7 +50,11 @@
 </html>
 
 <script>
-    const model = await tf.loadLayersModel('/model.json');
+    var model;
+    
+    document.onload(async () => {
+        model = await tf.loadLayersModel('/model.json');
+    });
 
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.querySelector('#image-form');
