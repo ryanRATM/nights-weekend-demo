@@ -87,11 +87,11 @@
                     imageInput.src = reader.result;
                     imageInput.onload = () => {
                         // Convert the image to a Tensor.
-                        const tensor = tf.browser.fromPixels(imageInput);
+                        const imageTensor = tf.browser.fromPixels(imageInput);
 
                         // You can now use the Tensor for machine learning tasks.
-                        const resizedImage = tf.image.resizeBilinear(imageInput, [128, 128]);
-                        model.predict(imageInput).print();
+                        const resizedTensorImage = tf.image.resizeBilinear(imageTensor, [128, 128]);
+                        model.predict(resizedTensorImage).print();
                     };
                 };
                 reader.readAsDataURL(file);
