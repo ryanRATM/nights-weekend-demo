@@ -2,6 +2,8 @@
   <head>
     <title>Image Uploader</title>
   </head>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+
   <style>
     #image-container {
         width: 500px;
@@ -48,24 +50,29 @@
 </html>
 
 <script>
+    const model = await tf.loadLayersModel('/model.json');
+
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.querySelector('#image-form');
         const imageContainer = document.querySelector('#image-container');
+        const produceType = document.querySelector("#produce").value;
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
 
-            const file = document.querySelector('#image-input').files[0];
-            const reader = new FileReader();
+            if(produceType != undefined && produceType != "") {
+                const file = document.querySelector('#image-input').files[0];
+                const reader = new FileReader();
 
-            reader.onloadend = () => {
-            imageContainer.innerHTML = '';
-            const img = document.createElement('img');
-            img.src = reader.result;
-            imageContainer.appendChild(img);
-            };
+                reader.onloadend = () => {
+                imageContainer.innerHTML = '';
+                const img = document.createElement('img');
+                img.src = reader.result;
+                imageContainer.appendChild(img);
+                };
 
-            reader.readAsDataURL(file);
+                reader.readAsDataURL(file);
+            }
         });
     });
 </script>
