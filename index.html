@@ -83,7 +83,8 @@
                     imageContainer.appendChild(img);
 
                     const imageInput = new Image();
-                    imageInput.src = dataUrl;
+                    console.log('reader.result:', reader.result);
+                    imageInput.src = reader.result;
                     imageInput.onload = () => {
                         // Convert the image to a Tensor.
                         const tensor = tf.browser.fromPixels(imageInput);
