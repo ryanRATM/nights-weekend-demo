@@ -52,7 +52,7 @@
 <script>
     var model;
     
-    document.onload(async () => {
+    window.onload(async () => {
         model = await tf.loadLayersModel('/model.json');
     });
 
