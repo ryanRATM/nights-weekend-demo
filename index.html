@@ -90,8 +90,8 @@
                         const tensor = tf.browser.fromPixels(imageInput);
 
                         // You can now use the Tensor for machine learning tasks.
-                        const resizedImage = tf.image.resizeBilinear(image, [128, 128]);
-                        model.predict(tf.tensor2d([5], [1, 1])).print();
+                        const resizedImage = tf.image.resizeBilinear(imageInput, [128, 128]);
+                        model.predict(imageInput).print();
                     };
                 };
                 reader.readAsDataURL(file);
