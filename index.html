@@ -56,6 +56,14 @@
         model = await tf.loadGraphModel('/nights-weekend-demo/model.json');
     };
 
+    function forecast() {
+        const image = tf.browser.fromPixels(imageElement);
+
+        // Resize the image to 224x224.
+        const resizedImage = tf.image.resizeBilinear(image, [224, 224]);
+
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.querySelector('#image-form');
         const imageContainer = document.querySelector('#image-container');
@@ -69,12 +77,22 @@
                 const reader = new FileReader();
 
                 reader.onloadend = () => {
-                imageContainer.innerHTML = '';
-                const img = document.createElement('img');
-                img.src = reader.result;
-                imageContainer.appendChild(img);
-                };
+                    imageContainer.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = reader.result;
+                    imageContainer.appendChild(img);
 
+                    const imageInput = new Image();
+                    imageInput.src = dataUrl;
+                    imageInput.onload = () => {
+                        // Convert the image to a Tensor.
+                        const tensor = tf.browser.fromPixels(imageInput);
+
+                        // You can now use the Tensor for machine learning tasks.
+                        const resizedImage = tf.image.resizeBilinear(image, [128, 128]);
+                        model.predict(tf.tensor2d([5], [1, 1])).print();
+                    };
+                };
                 reader.readAsDataURL(file);
             }
         });
