@@ -18,9 +18,27 @@
     }
   </style>
   <body>
-    <h1>Image Uploader</h1>
+    <h1>Resource Model Demo</h1>
+    <br/>
+    <h3>Mission</h3>
+    <p>Make it easier for retailers to donate unsold food to local food banks.</p>
+    <br/>
+    <h3>Strategy</h3>
+    <p>Leveraging tech to automate the collection of unsold food and notifying food banks. Examples include computer vision and AI to automate data entry and recommenders to better allocate donations.</p>
+    <br/>
+    <h3>Why this basic site?</h3>
+    <p>
+        Part of the requirements for Buildspace nights & weekends is to get the f*** off localhost. This past week we reapproached our expected user intereaction to be via a mobile app (mock designs to come). 
+        To automate the data entry we cheated by taking the <a href="https://tfhub.dev/google/imagenet/mobilenet_v2_100_224/feature_vector/5">MobileNet V2 model trained on imageNet 1K</a> and fine tuning it for different types of fruits and veggies using the <a href="https://www.kaggle.com/datasets/moltean/fruits">fruits-360 dataset</a>.
+        This model is intended to run on a mobile device to classify produce as employees take it off the shelf. While our model seems to work we need your help to collect more images to build a better model!
+        When you upload an image and provide a label it will get saved for future training. 
+    </p>
     <form id="image-form">
       <input type="file" id="image-input" accept="image/*">
+      
+      <label for="produce">Produce Type:</label>
+      <input type="text" id="produce" name="produce"><br><br>
+
       <button type="submit">Upload Image</button>
     </form>
     <div id="image-container"></div>
