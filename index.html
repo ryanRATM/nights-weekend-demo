@@ -2,6 +2,21 @@
   <head>
     <title>Image Uploader</title>
   </head>
+  <style>
+    #image-container {
+        width: 500px;
+        height: 500px;
+        border: 1px solid black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #image-container img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+  </style>
   <body>
     <h1>Image Uploader</h1>
     <form id="image-form">
@@ -11,3 +26,26 @@
     <div id="image-container"></div>
   </body>
 </html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('#image-form');
+        const imageContainer = document.querySelector('#image-container');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const file = document.querySelector('#image-input').files[0];
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+            imageContainer.innerHTML = '';
+            const img = document.createElement('img');
+            img.src = reader.result;
+            imageContainer.appendChild(img);
+            };
+
+            reader.readAsDataURL(file);
+        });
+    });
+</script>
