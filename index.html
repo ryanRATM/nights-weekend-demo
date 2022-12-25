@@ -55,38 +55,69 @@
 <script>
     var model;
     const classes = ['apple',
- 'avocado',
- 'banana',
- 'blueberry',
- 'cauliflower',
- 'cherry',
- 'corn',
- 'cucumber',
- 'eggplant',
- 'grape',
- 'grapefruit',
- 'mango',
- 'onion',
- 'orange',
- 'papaya',
- 'peach',
- 'pear',
- 'pepper',
- 'pineapple',
- 'potato',
- 'strawberry',
- 'tomato',
- 'watermelon'];
+                    'avocado',
+                    'banana',
+                    'blueberry',
+                    'cauliflower',
+                    'cherry',
+                    'corn',
+                    'cucumber',
+                    'eggplant',
+                    'grape',
+                    'grapefruit',
+                    'mango',
+                    'onion',
+                    'orange',
+                    'papaya',
+                    'peach',
+                    'pear',
+                    'pepper',
+                    'pineapple',
+                    'potato',
+                    'strawberry',
+                    'tomato',
+                    'watermelon'];
     
     window.onload = async () => {
         model = await tf.loadGraphModel('/nights-weekend-demo/model.json');
     };
 
-    function forecast() {
-        const image = tf.browser.fromPixels(imageElement);
+    function forecast(produceType) {
+        const predictionElem = document.querySelector("#prediction");
 
-        // Resize the image to 224x224.
-        const resizedImage = tf.image.resizeBilinear(image, [224, 224]);
+        const imageInput = new Image();
+        console.log('reader.result:', reader.result);
+        imageInput.src = reader.result;
+        imageInput.onload = () => {
+            // Convert the image to a Tensor.
+            let imageTensor = tf.browser.fromPixels(imageInput);
+
+            // You can now use the Tensor for machine learning tasks.
+            let resizedTensorImage = tf.image.resizeBilinear(imageTensor, [224, 224]);
+            resizedTensorImage = resizedTensorImage.reshape([-1, 224, 224, 3]);
+            const predictions = model.predict(resizedTensorImage);
+            const predictionIndex = predictions.argMax(axis=1).dataSync()[0];
+            const prediction = classes[predictionIndex];
+            
+            console.log('predictions: ', predictions);
+            console.log('prediction: ', prediction);
+            predictionElem.innerText = prediction;
+        };
+    }
+
+    async function logData(imgFile, produceType) {
+        console.log('inside logData');
+        // make call to api
+        const endpoint = 'https://yimry0eqph.execute-api.us-east-1.amazonaws.com/DEV';
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            body: JSON.stringify({ produce: produceType }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        console.log('response: ', response);
+
+        // make put to url
 
     }
 
@@ -109,24 +140,8 @@
                     img.src = reader.result;
                     imageContainer.appendChild(img);
 
-                    const imageInput = new Image();
-                    console.log('reader.result:', reader.result);
-                    imageInput.src = reader.result;
-                    imageInput.onload = () => {
-                        // Convert the image to a Tensor.
-                        let imageTensor = tf.browser.fromPixels(imageInput);
-
-                        // You can now use the Tensor for machine learning tasks.
-                        let resizedTensorImage = tf.image.resizeBilinear(imageTensor, [224, 224]);
-                        resizedTensorImage = resizedTensorImage.reshape([-1, 224, 224, 3]);
-                        const predictions = model.predict(resizedTensorImage);
-                        const predictionIndex = predictions.argMax(axis=1).dataSync()[0];
-                        const prediction = classes[predictionIndex];
-                        
-                        console.log('predictions: ', predictions);
-                        console.log('prediction: ', prediction);
-                        predictionElem.innerText = prediction;
-                    };
+                    logData(file, produceType);
+                    forecast(produceType);
                 };
                 reader.readAsDataURL(file);
             }
