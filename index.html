@@ -112,7 +112,12 @@
         const response = await fetch(endpoint, {
             method: 'POST',
             body: JSON.stringify({ produce: produceType }),
-            headers: { 'Content-Type': 'application/json'}
+            headers: { 
+                'Content-Type': 'application/json', 
+                'access-control-allow-headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+                'access-control-allow-methods': 'OPTIONS,POST',
+                'access-control-allow-origin': 'https://ryanratm.github.io'
+            }
         });
 
         console.log('response: ', response);
