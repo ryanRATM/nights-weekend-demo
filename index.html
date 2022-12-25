@@ -91,7 +91,7 @@
 
                         // You can now use the Tensor for machine learning tasks.
                         const resizedTensorImage = tf.image.resizeBilinear(imageTensor, [224, 224]);
-                        resizedTensorImage = resizedTensorImage.reshape([1, 224, 224, 3]);
+                        resizedTensorImage = resizedTensorImage.reshape([-1, 224, 224, 3]);
                         model.predict(resizedTensorImage).print();
                     };
                 };
