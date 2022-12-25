@@ -45,6 +45,9 @@
 
       <button type="submit">Upload Image</button>
     </form>
+    <div>
+        <h4>Prediction: </h4><h5 id="prediction"></h4>
+    </div>
     <div id="image-container"></div>
   </body>
 </html>
@@ -91,6 +94,7 @@
         const form = document.querySelector('#image-form');
         const imageContainer = document.querySelector('#image-container');
         const produceType = document.querySelector("#produce").value;
+        const predictionElem = document.querySelector("#prediction");
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -121,6 +125,7 @@
                         
                         console.log('predictions: ', predictions);
                         console.log('prediction: ', prediction);
+                        predictionElem.innerText = prediction;
                     };
                 };
                 reader.readAsDataURL(file);
