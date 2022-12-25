@@ -51,6 +51,29 @@
 
 <script>
     var model;
+    const classes = ['apple',
+ 'avocado',
+ 'banana',
+ 'blueberry',
+ 'cauliflower',
+ 'cherry',
+ 'corn',
+ 'cucumber',
+ 'eggplant',
+ 'grape',
+ 'grapefruit',
+ 'mango',
+ 'onion',
+ 'orange',
+ 'papaya',
+ 'peach',
+ 'pear',
+ 'pepper',
+ 'pineapple',
+ 'potato',
+ 'strawberry',
+ 'tomato',
+ 'watermelon'];
     
     window.onload = async () => {
         model = await tf.loadGraphModel('/nights-weekend-demo/model.json');
@@ -92,7 +115,10 @@
                         // You can now use the Tensor for machine learning tasks.
                         let resizedTensorImage = tf.image.resizeBilinear(imageTensor, [224, 224]);
                         resizedTensorImage = resizedTensorImage.reshape([-1, 224, 224, 3]);
-                        model.predict(resizedTensorImage).print();
+                        const predictions = model.predict(resizedTensorImage);
+                        console.log('predictions: ', predictions);
+                        const prediction = classes[predictions.argMax()];
+                        console.log('prediction: ', prediction);
                     };
                 };
                 reader.readAsDataURL(file);
