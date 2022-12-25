@@ -116,7 +116,7 @@
                         let resizedTensorImage = tf.image.resizeBilinear(imageTensor, [224, 224]);
                         resizedTensorImage = resizedTensorImage.reshape([-1, 224, 224, 3]);
                         const predictions = model.predict(resizedTensorImage);
-                        const yyy = predictions.argMax();
+                        const yyy = tf.argMax(predictions[0], axis=-1);
                         console.log('predictions: ', predictions);
                         console.log('tf.argMax(predictions): ', yyy);
                         const prediction = classes[yyy];
