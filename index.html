@@ -112,7 +112,8 @@
         const response = await fetch(endpoint, {
             method: 'POST',
             body: JSON.stringify({ produce: produceType }),
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
+            mode: 'no-cors'
         });
 
         console.log('response: ', response);
