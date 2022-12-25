@@ -125,9 +125,9 @@
         const form = document.querySelector('#image-form');
         const imageContainer = document.querySelector('#image-container');
         const produceType = document.querySelector("#produce").value;
-        const predictionElem = document.querySelector("#prediction");
 
         form.addEventListener('submit', (event) => {
+            console.log('in event listener: ', produceType);
             event.preventDefault();
 
             if(produceType != undefined && produceType != "") {
