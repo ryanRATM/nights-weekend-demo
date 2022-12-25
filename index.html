@@ -114,10 +114,10 @@
             body: JSON.stringify({ produce: produceType }),
             headers: { 
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'//,
+                //'Access-Control-Allow-Origin': '*'//,
                 //'Access-Control-Allow-Headers': '*'
             },
-            mode:"cors"
+            mode:"no-cors"
         });
 
         console.log('response: ', response);
