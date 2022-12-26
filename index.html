@@ -108,7 +108,7 @@
     async function logData(imgFile, produceType) {
         console.log('inside logData');
         // make call to api
-        const endpoint = 'https://yimry0eqph.execute-api.us-east-1.amazonaws.com/DEV';
+        const endpoint = 'https://yimry0eqph.execute-api.us-east-1.amazonaws.com/DEV/upload';
         const response = await fetch(endpoint, {
             method: 'POST',
             body: JSON.stringify({ produce: produceType }),
