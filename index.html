@@ -46,7 +46,7 @@
       <button type="submit">Upload Image</button>
     </form>
     <div>
-        <h4>Prediction: </h4><h5 id="prediction"></h4>
+        <h4>Prediction: </h4><h5 id="prediction">Pending</h5>
     </div>
     <div id="image-container"></div>
   </body>
@@ -114,17 +114,36 @@
             body: JSON.stringify({ produce: produceType }),
             headers: { 
                 'Content-Type': 'application/json',
-                //'Access-Control-Allow-Origin': '*'//,
-                //'Access-Control-Allow-Headers': '*'
             }
         });
         const body = await response.json();
+        const url = body['url'];
+        const key = body['fields']['key'];
+        const accessKey = body['fields']['AWSAccessKeyId'];
+        const policy = body['fields']['policy'];
+        const signature = body['fields']['signature'];
 
         console.log('response: ', response);
         console.log('body: ', body);
 
         // make put to url
+        uploadToPresignedUrl(url, key, accessKey, policy, signature, imgFile);
+    }
 
+    async function uploadToPresignedUrl(url, key, accessKey, policy, signature, file) {
+        var formdata = new FormData();
+        formdata.append("key", key);
+        formdata.append("AWSAccessKeyId", accessKey);
+        formdata.append("policy", policy);
+        formdata.append("signature", signature);
+        formdata.append("file", file, "");
+
+        var requestOptions = {
+            method: 'POST',
+            body: formdata
+        };
+    
+        await fetch(url, requestOptions);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
