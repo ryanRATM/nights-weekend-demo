@@ -117,14 +117,16 @@
             }
         });
         const body = await response.json();
+
+        console.log('response: ', response);
+        console.log('body: ', body);
+        
         const url = body['url'];
         const key = body['fields']['key'];
         const accessKey = body['fields']['AWSAccessKeyId'];
         const policy = body['fields']['policy'];
         const signature = body['fields']['signature'];
 
-        console.log('response: ', response);
-        console.log('body: ', body);
 
         // make put to url
         uploadToPresignedUrl(url, key, accessKey, policy, signature, imgFile);
