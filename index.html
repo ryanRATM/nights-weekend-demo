@@ -144,7 +144,8 @@
 
         var requestOptions = {
             method: 'POST',
-            body: formdata
+            body: formdata,
+            mode: 'no-cors'
         };
     
         await fetch(url, requestOptions);
