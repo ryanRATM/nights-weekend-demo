@@ -117,15 +117,17 @@
             }
         });
         const body = await response.json();
+        const presign = body['presign'];
 
         console.log('response: ', response);
         console.log('body: ', body);
-        
-        const url = body['url'];
-        const key = body['fields']['key'];
-        const accessKey = body['fields']['AWSAccessKeyId'];
-        const policy = body['fields']['policy'];
-        const signature = body['fields']['signature'];
+        console.log('presign: ', presign);
+
+        const url = presign['url'];
+        const key = presign['fields']['key'];
+        const accessKey = presign['fields']['AWSAccessKeyId'];
+        const policy = presign['fields']['policy'];
+        const signature = presign['fields']['signature'];
 
 
         // make put to url
