@@ -118,10 +118,10 @@
                 //'Access-Control-Allow-Headers': '*'
             }
         });
+        const body = await response.json();
 
         console.log('response: ', response);
-        console.log('response: ', response.json());
-        console.log('response: ', response.body);
+        console.log('body: ', body);
 
         // make put to url
 
