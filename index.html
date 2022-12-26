@@ -169,7 +169,7 @@
                     img.src = reader.result;
                     imageContainer.appendChild(img);
 
-                    logData(reader, produceType); // file
+                    logData(file, produceType); // file
                     forecast(reader.result, produceType);
                 };
                 reader.readAsDataURL(file);
