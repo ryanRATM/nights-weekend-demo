@@ -145,7 +145,6 @@
         var requestOptions = {
             method: 'POST',
             body: formdata,
-            mode: 'no-cors'
         };
     
         await fetch(url, requestOptions);
@@ -156,7 +155,7 @@
         const imageContainer = document.querySelector('#image-container');
 
         form.addEventListener('submit', (event) => {
-            const produceType = document.querySelector("#produce").value;
+            const produceType = 'pineapple'; //document.querySelector("#produce").value; // not working to relay to s3
             console.log('in event listener: ', produceType);
             event.preventDefault();
 
